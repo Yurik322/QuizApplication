@@ -6,11 +6,6 @@ namespace ModelClasses.Entities.Testing
 {
     public class Test
     {
-        public Test()
-        {
-            TestQuestions = new List<TestQuestion>();
-            Guid = System.Guid.NewGuid().ToString();    // Generation Guid
-        }
         public int TestId { set; get; }
         public string Name { set; get; }
         public string Description { set; get; }
@@ -21,5 +16,10 @@ namespace ModelClasses.Entities.Testing
         public virtual ICollection<TestingResult> TestingResults { set; get; } 
 
         public string Guid { get; set; }
+        public Test()
+        {
+            TestQuestions = new List<TestQuestion>();
+            Guid = System.Guid.NewGuid().ToString();    // Generation Guid
+        }
     }
 }

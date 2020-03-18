@@ -67,6 +67,33 @@ namespace QuizApp.Controllers
         }
 
         [HttpGet]
+        public ActionResult CreateNewTest()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateNewTest(Test colect)
+        {
+            TryUpdateModel(colect);
+            if (ModelState.IsValid)
+            {
+                db.Tests.Add(colect);
+                db.SaveChanges();
+
+                return RedirectToAction("TestingUrlManagement");
+            }
+
+            return View();
+        }
+
+
+
+
+
+
+
+        [HttpGet]
         public ActionResult CreateTestingUrl()
         {
             return View();
@@ -89,7 +116,12 @@ namespace QuizApp.Controllers
 
         public ActionResult TestingUrlManagement()
         {
-            return View();
+            var testingsList = _getInfoService.GetAllTestingUrls();
+
+            var parsedTestingsList = testingsList.Select(t => _advancedMapper.MapTestingUrl(t)).ToList();
+
+
+            return View(parsedTestingsList);
         }
 
         public ActionResult ResultManagement()
