@@ -20,9 +20,6 @@ namespace QuizApp.Controllers
     [Authorize]
     public class AdminController : Controller
     {
-
-        //syka bl(t
-        //dsfgsfdsfsdfsdfsdfsdfsdfsRTRTRTRTRTRTRTRT
         //ToDo: МБ можна уникнути оцього, але тоді треба поміняти оті кріейти
         TestingContext db = new TestingContext();   // Connect to DB.
 
@@ -50,7 +47,10 @@ namespace QuizApp.Controllers
             _advancedMapper = advancedMapper;
         }
 
-
+        /// <summary>
+        /// Button "|Quiz app|".
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             // Якось викликати        http://localhost:53029/Admin/GetAllTestingResults
@@ -59,7 +59,11 @@ namespace QuizApp.Controllers
             return View("ResultManagement");
         }
 
-        //ToDo:
+        // ToDo:
+        /// <summary>
+        /// Button "|Tests|".
+        /// </summary>
+        /// <returns></returns>
         public ActionResult TestManagement()
         {
             // Якось викликати        http://localhost:53029/Admin/GetAllTests
@@ -90,12 +94,11 @@ namespace QuizApp.Controllers
             return View();
         }
 
-        //ToDo:
+        // ToDo:
         /// <summary>
-        /// Button Testing Urls.
+        /// Button "|Testing Urls|".
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
         public ActionResult TestingUrlManagement()
         {
             var testingsList = _getInfoService.GetAllTestingUrls();
@@ -104,15 +107,21 @@ namespace QuizApp.Controllers
 
             return View(parsedTestingsList);
         }
-        //public ActionResult TestingUrlManagement()
-        //{
-        //    return View();
-        //}
 
+        /// <summary>
+        /// Button "|Results|".
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ResultManagement()
         {
-            return View();
+            var allResults =
+                _getInfoService.GetAllTestingResults()
+                    .Select(r => _mapper.Map<TestingResultViewModel>(r))
+                    .ToList();
+
+            return View(allResults);
         }
+
 
 //        http://localhost:53029/Admin/GetAllTests
         [HttpGet]

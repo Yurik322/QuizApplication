@@ -1,0 +1,90 @@
+﻿@model QuizApp.ViewModel.Managing.TestingUrlViewModel
+
+@{
+    ViewBag.Title = "Quiz";
+}
+
+<h2>Quiz</h2>
+
+<div>
+    <h4>TestingUrlViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlInstance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UrlInstance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Guid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Guid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestGuid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestGuid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Interviewee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Interviewee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfRuns)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfRuns)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowedStartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowedStartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowedEndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowedEndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsValid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsValid)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("START QUIZ!!!", "StartTest", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Quiz")
+</p>

@@ -37,12 +37,41 @@ namespace QuizApp.Controllers
                 return View("TestingErrorView", (object)error);
             }
             //if all is ok
+
+            // ПЕРЕДАЄТЬСЯ ПОСИЛАННЯ НА ТЕСТ:
             var testUrl = _advancedMapper.MapTestingUrl(testUrlDomain);
             return View(testUrl);
         }
 
+        // ToDo:
+        //public ActionResult StartTest(string testingUrlGuid)
+        //{
+        //    var domainTest = _getInfoService.GetTestByTestingUrlGuid(testingUrlGuid);
 
-//        http://localhost:53029/Quiz/GetInfoAndStartTest
+        //    var questionViewModelList = domainTest
+        //        ?.TestQuestions
+        //        .Select(q => _mapper.Map<QuestionPassingViewModel>(q))
+        //        .ToList();
+
+        //    var attepmtGuid = Guid.NewGuid().ToString();
+
+        //    var test = new
+        //    {
+        //        TestTimeLimit = domainTest.TestTimeLimit ?? new TimeSpan(),
+        //        QuestionTimeLimit = domainTest.QuestionTimeLimit ?? new TimeSpan(),
+        //        Questions = questionViewModelList,
+        //        AttemptGuid = attepmtGuid
+        //    };
+
+        //    _advancedLogicService.StartQuiz(_getInfoService.GetTestingUrlByGuid(testingUrlGuid), attepmtGuid);
+
+        //    return View(test);
+        //}
+
+
+
+
+        //        http://localhost:53029/Quiz/GetInfoAndStartTest
         [HttpGet]
         public JsonResult GetInfoAndStartTest(string testingUrlGuid)
         {
