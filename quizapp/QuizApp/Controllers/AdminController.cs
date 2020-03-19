@@ -20,6 +20,9 @@ namespace QuizApp.Controllers
     [Authorize]
     public class AdminController : Controller
     {
+
+        //syka bl(t
+        //dsfgsfdsfsdfsdfsdfsdfsdfsRTRTRTRTRTRTRTRT
         //ToDo: МБ можна уникнути оцього, але тоді треба поміняти оті кріейти
         TestingContext db = new TestingContext();   // Connect to DB.
 
