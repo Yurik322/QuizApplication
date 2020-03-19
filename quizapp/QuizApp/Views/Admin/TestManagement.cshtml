@@ -57,25 +57,21 @@
     <td type="button" onclick="BtnClick()">
         <div class="btn-group-justified">
             @Html.ActionLink("Questions Answer", "QuestionsAnswer", new { guid = item.Guid }, new { @class = "btn btn-group btn-info" })
-            
         </div>
     </td>
-
     <td type="button" onclick="BtnClick()">
         <div class="btn-group-justified">
-           
             @Html.ActionLink("Test Questions", "TestQuestions", new { guid = item.Guid }, new { @class = "btn btn-group btn-warning" })
         </div>
     </td>
     <td type="button" onclick="BtnClick()">
         <div class="btn-group-justified">
-            
             @Html.ActionLink("Delete", "DeleteTest", new { guid = item.Guid }, new { @class = "btn btn-group btn-danger" })
         </div>
     </td>
     <td type="button" onclick="BtnClick()">
         <div class="btn-group-justified">
-            @Html.ActionLink("Create URL", "CreateTestingUrl", null, new { @class = "btn btn-group btn-success" })
+            @Html.ActionLink("Create URL", "CreateTestUrl", null, new { @class = "btn btn-group btn-success" })
         </div>
     </td>
 </tr>

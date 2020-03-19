@@ -361,7 +361,8 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_QuizLayout.cshtml" />
     <Content Include="Views\Admin\TestManagement.cshtml" />
-    <Content Include="Views\Admin\CreateTestingUrl.cshtml" />
+    <Content Include="Views\Admin\TestingUrlManagement.cshtml" />
+    <Content Include="Views\Admin\CreateTestUrl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

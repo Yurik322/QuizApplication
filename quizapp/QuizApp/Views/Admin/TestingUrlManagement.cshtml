@@ -1,0 +1,118 @@
+﻿@model IEnumerable<QuizApp.ViewModel.Managing.TestingUrlViewModel>
+
+@{
+    ViewBag.Title = "TestingUrlManagement";
+}
+
+<h2>TestingUrlManagement</h2>
+
+<table class="table">
+    <tr>
+        @*<th>
+                @Html.DisplayNameFor(model => model.UrlInstance)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Guid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestGuid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Interviewee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfRuns)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowedStartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowedEndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsValid)
+        </th>
+        <th></th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.UrlInstance)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Guid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestGuid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Interviewee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfRuns)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AllowedStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AllowedEndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsValid)
+            </td>
+
+            <td>
+                <div>
+                    @Html.ActionLink("Delete", "DeleteUrl", new {/* id=item.PrimaryKey */}, new { @class = "btn btn-group-justified btn-danger btn-sm" })
+                </div>
+
+                <div class="op" onclick="return false;">
+                    @Html.ActionLink("Generate URL", "TestingUrlManagement", new {/* id=item.PrimaryKey */}, new { @class = "btn btn-group-justified btn-success btn-sm" })
+                </div>
+            </td>
+
+            @*@Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+                @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+                @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})*@
+
+            <td style="display: none" class="wtf">
+                @*generate URL*@
+                <a class="link" href="/Test/@item.Guid">@Url.Action("../Test/" + item.Guid, "Admin", 0, "http")</a>
+
+            </td>
+
+        </tr>
+    }
+
+</table>
+<span>
+    @Html.ActionLink("Back to List", "CreateTestUrl", null, new { @class = "btn btn-primary" })
+</span>
+
+@*For display array of class, when click()*@
+<script>
+
+    let wtf = document.getElementsByClassName('wtf');
+    let op = document.getElementsByClassName('op');
+
+    for (let i = 0; i < op.length; i++) {
+
+        op[i].addEventListener('click', function (e) {
+
+            for (let b = 0; b < wtf.length; b++) {
+                wtf[i].style = 'display: block;';
+            }
+
+        });
+    }
+
+</script>

@@ -67,13 +67,13 @@ namespace QuizApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateTestingUrl()
+        public ActionResult CreateTestUrl()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateTestingUrl(TestingUrl colect)
+        public ActionResult CreateTestUrl(TestingUrl colect)
         {
             TryUpdateModel(colect);
             if (ModelState.IsValid)
@@ -87,10 +87,23 @@ namespace QuizApp.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Button Testing Urls.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public ActionResult TestingUrlManagement()
         {
-            return View();
+            var testingsList = _getInfoService.GetAllTestingUrls();
+
+            var parsedTestingsList = testingsList.Select(t => _advancedMapper.MapTestingUrl(t)).ToList();
+
+            return View(parsedTestingsList);
         }
+        //public ActionResult TestingUrlManagement()
+        //{
+        //    return View();
+        //}
 
         public ActionResult ResultManagement()
         {
