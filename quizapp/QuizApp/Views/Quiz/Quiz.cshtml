@@ -85,6 +85,11 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("START QUIZ!!!", "StartTest", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("START QUIZ!!!", "GetInfoAndStartTest", new { @*Model.Guid*@ }) |
+
+
+
     @Html.ActionLink("Back to List", "Quiz")
 </p>
+
+@*<a class="link" href="/Test/@item.Guid">@Url.Action("../Test/" + item.Guid, "Admin", 0, "http")</a>*@

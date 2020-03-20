@@ -362,10 +362,11 @@
     <Content Include="Views\Shared\_QuizLayout.cshtml" />
     <Content Include="Views\Admin\TestManagement.cshtml" />
     <Content Include="Views\Admin\TestingUrlManagement.cshtml" />
-    <Content Include="Views\Admin\CreateTestUrl.cshtml" />
     <Content Include="Views\Admin\ResultManagement.cshtml" />
     <Content Include="Views\Quiz\TestingErrorView.cshtml" />
     <Content Include="Views\Quiz\Quiz.cshtml" />
+    <Content Include="Views\Quiz\GetInfoAndStartTest.cshtml" />
+    <Content Include="Views\Admin\CreateTestUrl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

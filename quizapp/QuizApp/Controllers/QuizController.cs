@@ -32,6 +32,7 @@ namespace QuizApp.Controllers
         {
             var testUrlDomain = _getInfoService.GetTestingUrlByGuid(guid);
             var error = _advancedLogicService.CheckTestingUrlForAvailability(testUrlDomain);
+            
             if (!string.IsNullOrEmpty(error))
             {
                 return View("TestingErrorView", (object)error);
@@ -43,37 +44,11 @@ namespace QuizApp.Controllers
             return View(testUrl);
         }
 
-        // ToDo:
-        //public ActionResult StartTest(string testingUrlGuid)
-        //{
-        //    var domainTest = _getInfoService.GetTestByTestingUrlGuid(testingUrlGuid);
-
-        //    var questionViewModelList = domainTest
-        //        ?.TestQuestions
-        //        .Select(q => _mapper.Map<QuestionPassingViewModel>(q))
-        //        .ToList();
-
-        //    var attepmtGuid = Guid.NewGuid().ToString();
-
-        //    var test = new
-        //    {
-        //        TestTimeLimit = domainTest.TestTimeLimit ?? new TimeSpan(),
-        //        QuestionTimeLimit = domainTest.QuestionTimeLimit ?? new TimeSpan(),
-        //        Questions = questionViewModelList,
-        //        AttemptGuid = attepmtGuid
-        //    };
-
-        //    _advancedLogicService.StartQuiz(_getInfoService.GetTestingUrlByGuid(testingUrlGuid), attepmtGuid);
-
-        //    return View(test);
-        //}
 
 
-
-
-        //        http://localhost:53029/Quiz/GetInfoAndStartTest
         [HttpGet]
-        public JsonResult GetInfoAndStartTest(string testingUrlGuid)
+        // ToDo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:
+        public JsonResult GetInfoAndStartTest(string testingUrlGuid = "0c16511c-ca9e-4d17-af8e-c6e791fb19ec")    // = "5a376ffa-3eda-4ea0-b65a-33e14ecfa97c"
         {
             var domainTest = _getInfoService.GetTestByTestingUrlGuid(testingUrlGuid);
 
