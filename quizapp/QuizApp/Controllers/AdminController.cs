@@ -28,23 +28,13 @@ namespace QuizApp.Controllers
         private readonly IAdvancedLogicService _advancedLogicService;
         private readonly IMapper _mapper;
 
-
-        
-        private readonly ILowLevelTestManagementService _lowLevelTestManagementService;
-        private readonly IHighLevelTestManagementService _highLevelTestManagementService;
-
-
-
-        public AdminController(IGetInfoService getInfoService,
-            ILowLevelTestManagementService lowLevelTestManagementService,
-            IHighLevelTestManagementService highLevelTestManagementService, IMapper mapper,
-            IAdvancedMapper advancedMapper)
+        public AdminController(IGetInfoService getInfoService, IAdvancedMapper advancedMapper,
+            IAdvancedLogicService advancedLogicService, IMapper mapper)
         {
             _getInfoService = getInfoService;
-            _lowLevelTestManagementService = lowLevelTestManagementService;
-            _highLevelTestManagementService = highLevelTestManagementService;
-            _mapper = mapper;
             _advancedMapper = advancedMapper;
+            _advancedLogicService = advancedLogicService;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -66,46 +56,16 @@ namespace QuizApp.Controllers
         /// <returns></returns>
         public ActionResult TestManagement()
         {
-            // Якось викликати        http://localhost:53029/Admin/GetAllTests
-            // GetAllTests();
-
-            var allTests = _getInfoService.GetAllTests().Select(t => _advancedMapper.MapTest(t)).ToList();
-            return View(allTests);
-        }
-
-        [HttpGet]
-        public ActionResult CreateTestUrl()
-        {
             return View();
         }
 
-        [HttpPost]
-        public ActionResult CreateTestUrl(TestingUrl colect)
-        {
-            TryUpdateModel(colect);
-            if (ModelState.IsValid)
-            {
-                db.TestingUrls.Add(colect);
-                db.SaveChanges();
-
-                return RedirectToAction("TestingUrlManagement");
-            }
-
-            return View();
-        }
-
-        // ToDo:
         /// <summary>
         /// Button "|Testing Urls|".
         /// </summary>
         /// <returns></returns>
         public ActionResult TestingUrlManagement()
         {
-            var testingsList = _getInfoService.GetAllTestingUrls();
-
-            var parsedTestingsList = testingsList.Select(t => _advancedMapper.MapTestingUrl(t)).ToList();
-
-            return View(parsedTestingsList);
+            return View();
         }
 
         /// <summary>
@@ -169,102 +129,6 @@ namespace QuizApp.Controllers
                 _advancedLogicService.GetCsvResults(testGuid, writer);
             }
             Response.End();
-        }
-
-
-
-
-        
-        [HttpGet]
-        public JsonResult GetAnswersByQuestionGuid(string questionGuid)
-        {
-            var answerViewModelList = _getInfoService
-                .GetQuestionByGuid(questionGuid)
-                ?.TestAnswers
-                .Select(a => _mapper.Map<AnswerViewModel>(a))
-                .ToList();
-
-            return Json(answerViewModelList, JsonRequestBehavior.AllowGet);
-        }
-        [HttpPost]
-        public void CreateAnswer(string questionGuid, AnswerViewModel answer)
-        {
-            var testAnswer = _mapper.Map<TestAnswer>(answer);
-            _lowLevelTestManagementService.CreateAnswerForQuestion(questionGuid, testAnswer);
-        }
-        [HttpPost]
-        public void RemoveAnswer(string answerGuid)
-        {
-            _lowLevelTestManagementService.RemoveAnswer(answerGuid);
-        }
-
-        [HttpGet]
-        public JsonResult GetQuestionsByTestGuid(string testGuid)
-        {
-            var questionViewModelList = _getInfoService
-                .GetTestByGuid(testGuid)
-                ?.TestQuestions
-                .Select(q => _advancedMapper.MapTestQuestion(q))
-                .ToList();
-
-            return Json(questionViewModelList, JsonRequestBehavior.AllowGet);
-        }
-        [HttpPost]
-        public void CreateQuestion(string testGuid, QuestionViewModel question)
-        {
-            var testQuestion = _mapper.Map<TestQuestion>(question);
-            _lowLevelTestManagementService.CreateQuestionForTest(testGuid, testQuestion);
-        }
-        [HttpPost]
-        public void RemoveQuestion(string testGuid, string questionGuid)
-        {
-            _lowLevelTestManagementService.RemoveQuestion(questionGuid);
-        }
-        [HttpPost]
-        public void UpdateQuestion(string questionGuid, QuestionViewModel question)
-        {
-            var testQuestion = _mapper.Map<TestQuestion>(question);
-            _lowLevelTestManagementService.UpdateQuestion(questionGuid, testQuestion);
-        }
-
-
-        //ToDo?????????????????????????????????????????????????????????????????????????????????????????????
-        [HttpPost]
-        public void CreateTest(TestViewModel test)
-        {
-            var testFromDomain = _advancedMapper.MapTestViewModel(test);
-            _highLevelTestManagementService.CreateTest(testFromDomain);
-        }
-        [HttpPost]
-        public void UpdateTest(string testGuid, TestViewModel test)
-        {
-            var testFromDomain = _advancedMapper.MapTestViewModel(test);
-            _highLevelTestManagementService.UpdateTest(testGuid, testFromDomain);
-        }
-        [HttpPost]
-        public void RemoveTest(string testGuid)
-        {
-            _highLevelTestManagementService.RemoveTest(testGuid);
-        }
-
-
-        [HttpPost]
-        public void CreateTestingUrl(TestingUrlViewModel testingUrl)
-        {
-            var testUrlDomain = _advancedMapper.MapTestingUrlViewModel(testingUrl);
-            _highLevelTestManagementService.CreateTestingUrl(testUrlDomain);
-        }
-        [HttpPost]
-        public void RemoveTestingUrl(string testingUrlGuid)
-        {
-            _highLevelTestManagementService.RemoveTestingUrl(testingUrlGuid);
-        }
-
-
-        [HttpPost]
-        public void RemoveTestingResult(string testingResultGuid)
-        {
-            _highLevelTestManagementService.RemoveTestingResult(testingResultGuid);
         }
     }
 }

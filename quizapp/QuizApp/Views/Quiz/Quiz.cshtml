@@ -2,94 +2,211 @@
 
 @{
     ViewBag.Title = "Quiz";
+    //Layout = "~/Views/Shared/_QuizLayout.cshtml";
 }
 
-<h2>Quiz</h2>
+<html>
+<head>
+    <script src="/Scripts/jquery-1.10.2.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-debug.js"></script>*@
+</head>
+<body>
+
+    <h2>Quiz</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken() // мб оце попробую закоментувати.
+
+        <div class="form-horizontal">
+
+            <h4>TestingUrlViewModel</h4>
+            <hr />
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Guid, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Guid, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled", @Id = "test" } })
+                    @Html.ValidationMessageFor(model => model.Guid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TestGuid, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TestGuid, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.TestGuid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TestName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TestName, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.TestName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Interviewee, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Interviewee, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Interviewee, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NumberOfRuns, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NumberOfRuns, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.NumberOfRuns, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AllowedStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AllowedStartDate, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.AllowedStartDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AllowedEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AllowedEndDate, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.AllowedEndDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+
+
+                    <script>
+
+                        //var us = document.getElementById("test").innerHTML;
+
+                        //alert(us.value);
+
+                        var myTest =
+                        {
+                            // приходить пустий об"єкт
+                            Guid: $('#test').val()
+                        }
+                        ////ERROR:
+                        //alert(JSON.stringify(myTest));
+
+                    </script>
+
+                    <input type="submit" value="Start TEST" class="btn btn-default" onclick="alert(JSON.stringify(myTest)); Guid = myTest; return GetInfoAndStartTest(Guid);" />
+
+                </div>
+            </div>
+        </div>
+    }
 
 <div>
-    <h4>TestingUrlViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UrlInstance)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UrlInstance)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Guid)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Guid)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TestGuid)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TestGuid)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TestName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TestName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Interviewee)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Interviewee)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NumberOfRuns)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NumberOfRuns)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AllowedStartDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AllowedStartDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AllowedEndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AllowedEndDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsValid)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsValid)
-        </dd>
-
-    </dl>
+    @Html.ActionLink("Back to List", "Index")
 </div>
-<p>
-    @Html.ActionLink("START QUIZ!!!", "GetInfoAndStartTest", new { @*Model.Guid*@ }) |
 
 
 
-    @Html.ActionLink("Back to List", "Quiz")
-</p>
+<div class="quiz"></div>
+</body>
+</html>
 
-@*<a class="link" href="/Test/@item.Guid">@Url.Action("../Test/" + item.Guid, "Admin", 0, "http")</a>*@
+
+@section scripts
+{
+    <script type="text/javascript">
+        //Load Data in Table when documents is ready
+        //$(document).ready(function () {
+        //    loadData();
+        //});
+
+        ////Load Data function
+        //function loadData() {
+        //    $.ajax({
+        //        url: "/Quiz/GetInfoAndStartTest",
+        //        type: "GET",
+        //        contentType: "application/json;charset=utf-8",
+        //        dataType: "json",
+        //        success: function (result) {
+        //            var html = '';
+        //            $.each(result,
+        //                function (key, item) {
+        //                    html += '<tr>';
+        //                    html += '<td>' + item.Instance + '</td>';
+        //                    html += '<td>' + item.Hint + '</td>';
+        //                    html += '<td>' + item.Answers + '</td>';
+        //                    html += '<td>' + item.Guid + '</td>';
+
+        //                    html +=
+        //                        `<td><a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myUrls" onclick="return RemoveTestingUrl('${item.Guid}')">Delete URL</a></td>`;
+        //                    html += '</tr>';
+        //                });
+        //            $('.tbody').html(html);
+        //        },
+        //        error: function (errormessage) {
+        //            alert("ERROR");
+        //        }
+        //    });
+        //}
+
+        //debugger;
+        //var myTest =
+        //{
+        //    Guid: $('#test').val()
+        //}
+        ////ERROR:
+        //alert(JSON.stringify(myTest));
+
+
+
+
+
+
+
+        //Load Data function
+        function GetInfoAndStartTest(guid) {
+            var getObj =
+            {
+                testingUrlGuid: guid
+            };
+
+            $.ajax({
+                data: getObj,
+                url: "/Quiz/GetInfoAndStartTest",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    debugger;
+                    console.log("Response:", data);
+                    if (data) {
+                        var html = '';
+                        $.each(data,
+                            function (key, items) {
+                                html += '<tr class="allRowsQuestion" onclick="FunctionForRowQuestion()">';
+                                html += '<td>' + items.Instance + '</td>';
+                                html += '<td>' + items.Hint + '</td>';
+                                html += '<td  class = "questioningGuid">' + items.Guid + '</td>';
+                                html +=
+                                    `<td><a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myAnswers" onclick="return GetAnswersByQuestionGuid('${items.Guid}')">Answers</a></td>` +
+                                    `<td><a href="#" onclick="return GetTestByguid('${items.Guid}')">Edit</a></td>` +
+                                    `<td><a href="#" onclick="return DeleteQuestion('${items.Guid}')">Delete</a></td>`;
+                                html += '</tr>';
+                            });
+                        $('.quiz').html(html);
+                    }
+                },
+                error: function (error) {
+                    debugger;
+                    alert("Error:" + error);
+                }
+            });
+        }
+    </script>
+}

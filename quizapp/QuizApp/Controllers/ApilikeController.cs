@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
+using DAL.DataAccess;
 using ModelClasses.Entities.Testing;
 using ModelClasses.Entities.TestParts;
 using QuizApp.ViewModel;
@@ -16,6 +17,7 @@ namespace QuizApp.Controllers
     [Authorize]
     public class ApilikeController : Controller
     {
+        //private readonly IRepository<Test> _testRepository;
         private readonly IGetInfoService _getInfoService;
         private readonly ILowLevelTestManagementService _lowLevelTestManagementService;
         private readonly IHighLevelTestManagementService _highLevelTestManagementService;
@@ -23,11 +25,13 @@ namespace QuizApp.Controllers
         private readonly IMapper _mapper;
         private readonly IAdvancedMapper _advancedMapper;
 
-        public ApilikeController(IGetInfoService getInfoService,
+        public ApilikeController(/*IRepository<Test> testRepository,*/ 
+            IGetInfoService getInfoService,
             ILowLevelTestManagementService lowLevelTestManagementService,
             IHighLevelTestManagementService highLevelTestManagementService, IMapper mapper,
             IAdvancedMapper advancedMapper)
         {
+            //_testRepository = testRepository;
             _getInfoService = getInfoService;
             _lowLevelTestManagementService = lowLevelTestManagementService;
             _highLevelTestManagementService = highLevelTestManagementService;
@@ -70,7 +74,7 @@ namespace QuizApp.Controllers
             return Json(questionViewModelList, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public void CreateQuestion(string testGuid, QuestionViewModel question)
+        public void CreateQuestion(string testGuid, QuestionViewModel question)     /*  ="daabda81-6ffa-4ec4-a578-d8e04c74d478" */
         {
             var testQuestion = _mapper.Map<TestQuestion>(question);
             _lowLevelTestManagementService.CreateQuestionForTest(testGuid, testQuestion);
@@ -88,13 +92,19 @@ namespace QuizApp.Controllers
         }
 
 
-        //ToDo?????????????????????????????????????????????????????????????????????????????????????????????
         [HttpPost]
         public void CreateTest(TestViewModel test)
         {
             var testFromDomain = _advancedMapper.MapTestViewModel(test);
             _highLevelTestManagementService.CreateTest(testFromDomain);
         }
+        ////ToDo?????????????????????????????????????????????????????????????????????????????????????????????
+        //// Мб заберу:
+        //public Test GetTestByGuid(string testGuid)  // ne працює(це моя функція, її мб можна забрати)
+        //{
+        //    // ERROR!!!!!!!!!!!! (testGuid = null -- не можу обробити стрічку з javascript-ajax)
+        //    return _testRepository.Get(test => test.Guid == testGuid);
+        //}
         [HttpPost]
         public void UpdateTest(string testGuid, TestViewModel test)
         {
@@ -109,7 +119,7 @@ namespace QuizApp.Controllers
 
 
         [HttpPost]
-        public void CreateTestingUrl(TestingUrlViewModel testingUrl)
+        public void CreateTestingUrl(TestingUrlViewModel testingUrl)    //GUID????
         {
             var testUrlDomain = _advancedMapper.MapTestingUrlViewModel(testingUrl);
             _highLevelTestManagementService.CreateTestingUrl(testUrlDomain);

@@ -1,118 +1,126 @@
 ﻿@model IEnumerable<QuizApp.ViewModel.Managing.TestingUrlViewModel>
-
 @{
     ViewBag.Title = "TestingUrlManagement";
 }
+<html>
+<head>
+    <script src="/Scripts/jquery-1.10.2.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>TestingUrlManagement</h2>
+        <hr />
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        UrlInstance
+                    </th>
+                    <th>
+                        Guid
+                    </th>
+                    <th>
+                        TestGuid
+                    </th>
+                    <th>
+                        TestName
+                    </th>
+                    <th>
+                        Interviewee
+                    </th>
+                    <th>
+                        NumberOfRuns
+                    </th>
+                    <th>
+                        AllowedStartDate
+                    </th>
+                    <th>
+                        AllowedEndDate
+                    </th>
+                    <th>
+                        IsValid
+                    </th>
+                    <th>
 
-<h2>TestingUrlManagement</h2>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+            </tbody>
+        </table>
+    </div>
 
-<table class="table">
-    <tr>
-        @*<th>
-                @Html.DisplayNameFor(model => model.UrlInstance)
-            </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Guid)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TestGuid)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TestName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Interviewee)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumberOfRuns)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AllowedStartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AllowedEndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsValid)
-        </th>
-        <th></th>
+</body>
+</html>
 
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.UrlInstance)
-                </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Guid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TestGuid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TestName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Interviewee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfRuns)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AllowedStartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AllowedEndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsValid)
-            </td>
-
-            <td>
-                <div>
-                    @Html.ActionLink("Delete", "DeleteUrl", new {/* id=item.PrimaryKey */}, new { @class = "btn btn-group-justified btn-danger btn-sm" })
-                </div>
-
-                <div class="op" onclick="return false;">
-                    @Html.ActionLink("Generate URL", "TestingUrlManagement", new {/* id=item.PrimaryKey */}, new { @class = "btn btn-group-justified btn-success btn-sm" })
-                </div>
-            </td>
-
-            @*@Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})*@
-
-            <td style="display: none" class="wtf">
-                @*generate URL*@
-                <a class="link" href="/Test/@item.Guid">@Url.Action("../Test/" + item.Guid, "Admin", 0, "http")</a>
-
-            </td>
-
-        </tr>
-    }
-
-</table>
-<span>
-    @Html.ActionLink("Back to List", "CreateTestUrl", null, new { @class = "btn btn-primary" })
-</span>
-
-@*For display array of class, when click()*@
-<script>
-
-    let wtf = document.getElementsByClassName('wtf');
-    let op = document.getElementsByClassName('op');
-
-    for (let i = 0; i < op.length; i++) {
-
-        op[i].addEventListener('click', function (e) {
-
-            for (let b = 0; b < wtf.length; b++) {
-                wtf[i].style = 'display: block;';
-            }
-
+@section scripts
+{
+    <script type="text/javascript">
+        //Load Data in Table when documents is ready
+        $(document).ready(function() {
+            loadData();
         });
-    }
 
-</script>
+        //Load Data function
+        function loadData() {
+            $.ajax({
+                url: "/Admin/GetAllTestingUrls",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function(result) {
+                    var html = '';
+                    $.each(result,
+                        function(key, item) {
+                            html += '<tr>';
+                            html += `<td><a href="/Test/${item.Guid}" onclick="return MyFunc()">http://Test/${item.Guid}</a></td>`;
+                            html += '<td>' + item.Guid + '</td>';
+                            html += '<td>' + item.TestGuid + '</td>';
+                            html += '<td>' + item.TestName + '</td>';
+                            html += '<td>' + item.Interviewee + '</td>';
+                            html += '<td>' + item.NumberOfRuns + '</td>';
+                            html += '<td>' + item.AllowedStartDate + '</td>';
+                            html += '<td>' + item.AllowedEndDate + '</td>';
+                            html += '<td>' + item.IsValid + '</td>';
+
+                            html +=
+                                `<td><a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myUrls" onclick="return RemoveTestingUrl('${item.Guid}')">Delete URL</a></td>`;
+                        });
+                    $('.tbody').html(html);
+                },
+                error: function(errormessage) {
+                    alert("ERROR");
+                }
+            });
+        }
+
+        function RemoveTestingUrl(guid) {
+            var ans = confirm("Are you sure you want to delete this Record?");
+            if (ans) {
+                debugger;
+                var delObj =
+                {
+                    testingUrlGuid: guid
+                };
+
+                $.ajax({
+                    data: JSON.stringify(delObj),
+                    url: "/Apilike/RemoveTestingUrl",
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "text",
+
+                    success: function(result) {
+                        // Отут треба відіслати^^^^^
+                        alert("Успешно!");
+                        loadData();
+                    },
+                    error: function(errormessage) {
+                        alert("ERROR!!!");
+                    }
+                });
+            }
+        }
+    </script>
+}

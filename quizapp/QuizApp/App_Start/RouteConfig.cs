@@ -16,7 +16,7 @@ namespace QuizApp
             routes.MapRoute(
                 name: "Test",       // http://localhost:53029/Test/{guid}
 
-                url: "Test/{guid}", //  http://localhost:53029/Quiz/GetInfoAndStartTest /Test/{testGuid}
+                url: "Test/{guid}", //  http://localhost:53029/Quiz/GetInfoAndStartTest
                 defaults: new {controller = "Quiz", action = "Quiz"});
 
             routes.MapRoute(

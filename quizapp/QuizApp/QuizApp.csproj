@@ -294,19 +294,14 @@
     <Compile Include="ViewModel\Managing\TestViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-material\bootstrap-material-design.min.css" />
-    <Content Include="Content\bootstrap-material\material.min.js" />
-    <Content Include="Content\bootstrap-material\ripples.min.css" />
-    <Content Include="Content\bootstrap-material\ripples.min.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\im1.jpg" />
     <Content Include="Content\jasmine\jasmine.css" />
     <Content Include="Content\jasmine\jasmine_favicon.png" />
-    <Content Include="Content\ngDialog-theme-default.min.css" />
-    <Content Include="Content\ngDialog.min.css" />
     <Content Include="Content\quizStyles.css" />
-    <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -329,6 +324,7 @@
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular-messages.min.js.map" />
+    <Content Include="Scripts\delete.js" />
     <Content Include="Scripts\jasmine-samples\Player.js" />
     <Content Include="Scripts\jasmine-samples\PlayerSpec.js" />
     <Content Include="Scripts\jasmine-samples\Song.js" />
@@ -337,6 +333,10 @@
     <Content Include="Scripts\jasmine\console.js" />
     <Content Include="Scripts\jasmine\jasmine-html.js" />
     <Content Include="Scripts\jasmine\jasmine.js" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
     <None Include="Properties\PublishProfiles\localProfile.pubxml" />
     <None Include="Properties\PublishProfiles\somee.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -361,17 +361,17 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_QuizLayout.cshtml" />
     <Content Include="Views\Admin\TestManagement.cshtml" />
-    <Content Include="Views\Admin\TestingUrlManagement.cshtml" />
     <Content Include="Views\Admin\ResultManagement.cshtml" />
     <Content Include="Views\Quiz\TestingErrorView.cshtml" />
-    <Content Include="Views\Quiz\Quiz.cshtml" />
+    <Content Include="Views\Admin\TestingUrlManagement.cshtml" />
     <Content Include="Views\Quiz\GetInfoAndStartTest.cshtml" />
-    <Content Include="Views\Admin\CreateTestUrl.cshtml" />
+    <Content Include="Views\Quiz\Quiz.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\functionality\" />
+    <Folder Include="Views\Apilike\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

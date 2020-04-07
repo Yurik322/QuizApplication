@@ -1,80 +1,862 @@
-﻿@model IEnumerable<QuizApp.ViewModel.Managing.TestViewModel>
-
+﻿@*@model IEnumerable<QuizApp.ViewModel.Managing.TestViewModel>*@
+@*@model ModelClasses.Entities.Testing.Test*@
 @{
     ViewBag.Title = "TestManagement";
 }
 
-<h2>TestManagement</h2>
+<html>
+<head>
+    @*<script src="/Scripts/delete.js"></script>*@
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TestTimeLimit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.QuestionTimeLimit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Guid)
-        </th>
-        <th>
-        </th>
-        <th>
-        </th>
-        <th>
-        </th>
-        <th>
-        </th>
-    </tr>
+    <script src="/Scripts/jquery-1.10.2.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TestTimeLimit)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.QuestionTimeLimit)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Guid)
-    </td>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-debug.js"></script>*@
+</head>
+<body>
+    <div class="container">
+        <h2>TestManagement</h2>
 
-    <td type="button" onclick="BtnClick()">
-        <div class="btn-group-justified">
-            @Html.ActionLink("Questions Answer", "QuestionsAnswer", new { guid = item.Guid }, new { @class = "btn btn-group btn-info" })
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add New Test</button>
+        <hr />
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        TestTimeLimit
+                    </th>
+                    <th>
+                        QuestionTimeLimit
+                    </th>
+                    <th class="hidden">
+                        Questions
+                    </th>
+                    <th>
+                        Guid
+                    </th>
+                    <th class="hidden">
+                        IsValid
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal Add New Test-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*<button type="button" class="close" data-dissmiss="modal"><span aria-hidden="true">×</span></button>*@
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Add Test</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="Name">Name</label>
+                            <input type="text" class="form-control" id="Name" placeholder="Name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <input type="text" class="form-control" id="Description" placeholder="Description" />
+                        </div>
+                        <div class="form-group">
+                            <label for="TestTimeLimit">TestTimeLimit</label>
+                            <input type="text" class="form-control" id="TestTimeLimit" placeholder="TestTimeLimit" />
+                        </div>
+                        <div class="form-group">
+                            <label for="QuestionTimeLimit">QuestionTimeLimit</label>
+                            <input type="text" class="form-control" id="QuestionTimeLimit" placeholder="QuestionTimeLimit" />
+                        </div>
+                        <div class="form-group">
+                            <label for="testGuid">Guid</label>
+                            <input type="text" class="form-control" id="testGuid" placeholder="Guid" disabled="disabled" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnAddNewTest" onclick="return AddNewTest();">Add</button>
+                    <button type="button" class="btn btn-primary" id="btnUpdateTest" style="display:none;" onclick="UpdateTest();">Update</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
-    </td>
-    <td type="button" onclick="BtnClick()">
-        <div class="btn-group-justified">
-            @Html.ActionLink("Test Questions", "TestQuestions", new { guid = item.Guid }, new { @class = "btn btn-group btn-warning" })
+    </div>
+
+
+    @*data-backdrop="false"*@
+
+    <div class="container">
+        <!-- Modal Questions-->
+        <div class="modal fade" id="myQuestions" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Test Questions</h4>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#myModalNewQuestion" @*onclick="return CreateQuestion(testGuid);"*@>Add New Question</button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Instance
+                                    </th>
+                                    <th>
+                                        Hint
+                                    </th>
+                                    <th class="hidden">
+                                        Answers
+                                    </th>
+                                    <th class="hidden">
+                                        IsValid
+                                    </th>
+                                    <th>
+                                        Guid
+                                    </th>
+                                    <th>
+
+                                    </th>
+                                    <th>
+
+                                    </th>
+                                    <th>
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbodyQuestions">
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </td>
-    <td type="button" onclick="BtnClick()">
-        <div class="btn-group-justified">
-            @Html.ActionLink("Delete", "DeleteTest", new { guid = item.Guid }, new { @class = "btn btn-group btn-danger" })
+    </div>
+
+    <div class="container">
+        <!-- Modal Answers -->
+        <div class="modal fade" id="myAnswers" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Answers</h4>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#myModalNewAnswer">Add New Answer</button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Instance
+                                    </th>
+                                    <th>
+                                        IsCorrect
+                                    </th>
+                                    <th>
+                                        Guid
+                                    </th>
+                                    <th>
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbodyAnswers">
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </td>
-    <td type="button" onclick="BtnClick()">
-        <div class="btn-group-justified">
-            @Html.ActionLink("Create URL", "CreateTestUrl", null, new { @class = "btn btn-group btn-success" })
+    </div>
+
+    <div class="container">
+        <!-- Modal Add New Question -->
+        <div class="modal fade" id="myModalNewQuestion" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="myModalNewQuestionLabel">Add Question</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <form>
+                            <div class="form-group">
+                                <label for="Instance">Instance</label>
+                                <input type="text" class="form-control" id="Instance" placeholder="Instance" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Hint">Hint</label>
+                                <input type="text" class="form-control" id="Hint" placeholder="Hint" />
+                            </div>
+                            <div class="form-group">
+                                <label for="questionGuid">Guid</label>
+                                <input type="text" class="form-control" id="questionGuid" placeholder="Guid" disabled="disabled"/>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        
+                        <button type="button" class="btn btn-primary" id="btnAddNewQuestion" onclick="alert(JSON.stringify(arrTest[rowIdTest].innerText)); testGuid=arrTest[rowIdTest].innerText; return AddNewQuestion(testGuid);">Add</button>
+
+
+                        <button type="button" class="btn btn-primary" id="btnUpdateQuestion" style="display: none;" onclick="UpdateQuestion();">Update</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </td>
-</tr>
+    </div>
+
+    <div class="container">
+        <!-- Modal Add New Answer -->
+        <div class="modal fade" id="myModalNewAnswer" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="myModalNewAnswerLabel">Add Answer</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <form>
+                            <div class="form-group">
+                                <label for="Instance">Instance</label>
+                                <input type="text" class="form-control" id="Instance" placeholder="Instance" />
+                            </div>
+                            <div class="form-group">
+                                <!--<label for="IsCorrect">IsCorrect</label>
+                                <input type="text" class="form-control" id="IsCorrect" placeholder="IsCorrect" />
+                                -->
+
+                                <label for="IsCorrect">IsCorrect</label>
+                                <select type="text" class="form-control" id="IsCorrect" placeholder="IsCorrect">
+                                    <option value="false">false</option>
+                                    <option value="true">true</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="answerGuid">Guid</label>
+                                <input type="text" class="form-control" id="answerGuid" placeholder="Guid" disabled="disabled" />
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnAddNewAnswer" onclick="alert(JSON.stringify(arrQuestion[rowIdQuestion].innerText)); questionGuid=arrQuestion[rowIdQuestion].innerText; return AddNewAnswer(questionGuid);">Add</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdateAnswer" style="display:none;" onclick="UpdateAnswer();">Update</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <!-- Modal Add New Url -->
+        <div class="modal fade" id="myModalNewUrl" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="myModalNewUrlLabel">New Url</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+
+                            <div class="form-group">
+                                <label for="UrlInstance">UrlInstance</label>
+                                <input type="text" class="form-control" id="UrlInstance" placeholder="UrlInstance"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="Guid">Guid</label>
+                                <input type="text" class="form-control" id="Guid" placeholder="Guid" disabled="disabled"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="TestGuid">TestGuid</label>
+                                <input type="text" class="form-control" id="TestGuid" placeholder="TestGuid" disabled="disabled"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="TestName">TestName</label>
+                                <input type="text" class="form-control" id="TestName" placeholder="TestName" disabled="disabled"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="Interviewee">Interviewee</label>
+                                <input type="text" class="form-control" id="Interviewee" placeholder="Interviewee"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="NumberOfRuns">NumberOfRuns</label>
+                                <input type="text" class="form-control" id="NumberOfRuns" placeholder="NumberOfRuns"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="AllowedStartDate">AllowedStartDate</label>
+                                <input type="text" class="form-control" id="AllowedStartDate" placeholder="AllowedStartDate"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="AllowedEndDate">AllowedEndDate</label>
+                                <input type="text" class="form-control" id="AllowedEndDate" placeholder="AllowedEndDate"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="IsValid">IsValid</label>
+                                <input type="text" class="form-control" id="IsValid" placeholder="IsValid" disabled="disabled"/>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnAddNewUrl" onclick="alert(JSON.stringify(arrTest[rowIdTest].innerText)); testGuid=arrTest[rowIdTest].innerText; return AddNewUrl(testGuid);">Add</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdateUrl" style="display:none;" onclick="UpdateUrl();">Update</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+@section scripts
+{
+    <script>
+        //Load Data in Table when documents is ready
+        $(document).ready(function() {
+            loadData();
+        });
+
+        var arrTest;
+        //Load Data function
+        function loadData() {
+            $.ajax({
+                url: "/Admin/GetAllTests",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function(result) {
+                    var html = '';
+                    $.each(result,
+                        function(key, item) {
+                            html += '<tr class="allRowsTest" onclick="return FunctionForRowTest()">';
+                            html += '<td>' + item.Name + '</td>';
+                            html += '<td>' + item.Description + '</td>';
+                            html += '<td>' + item.TestTimeLimit + '</td>';
+                            html += '<td>' + item.QuestionTimeLimit + '</td>';
+                            html += '<td class = "testingGuid">' + item.Guid + '</td>';
+
+                            html +=
+                                                                                                // ОТУТ хочу по ID взяти guid
+                                `<td><a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myQuestions" onclick="return GetQuestionsByTestGuid('${item.Guid}')">Test questions</a></td>` +
+                                `<td><a href="#" onclick="return GetTestByguid('${item.Guid}')">Update</a></td>` +
+                                `<td><a href="#" onclick="return DeleteTest('${item.Guid}')">Delete</a></td>` +
+                                `<td><a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalNewUrl" onclick="return ('${item.Guid}')">Create URL</a></td>`;
+                            html += '</tr>';
+                        });
+                    $('.tbody').html(html);
+                },
+                error: function(errormessage) {
+                    alert("ERROR");
+                }
+            });
+        }
+
+        var rowIdTest;
+        arrTest = document.getElementsByClassName('testingGuid');
+        // ! є баг якщо не натиснути на tr!
+        function FunctionForRowTest()
+        {
+            // debugger;
+            var tr = document.getElementsByClassName('allRowsTest');
+
+            for (let i = 0; i < tr.length; i++)
+            {
+
+                tr[i].addEventListener('click', function (e) {
+                    rowIdTest = i;
+                    console.log(rowIdTest);
+                    i = 0;
+                });
+            }
+        }
+
+
+
+
+
+        //!!!Add Data Function
+        function AddNewTest() {
+            var res = validateTest();
+            if (res == false) {
+                return false;
+            }
+            debugger;
+            var empObj =
+            {
+                Name: $('#Name').val(),
+                Description: $('#Description').val(),
+                TestTimeLimit: $('#TestTimeLimit').val(),
+                QuestionTimeLimit: $('#QuestionTimeLimit').val(),
+                Guid: $('#testGuid').val()
+            };
+            $.ajax({
+                url: "/Apilike/CreateTest",
+                data: JSON.stringify(empObj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function(result) {
+                    loadData();
+                    $('#myModal').modal('hide');
+                },
+                error: function(errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+        // має прийматись testGuid і відповідно на нього записуватись питання.
+        function AddNewQuestion(test) {
+            var res = validateQuestion();
+            if (res == false) {
+                return false;
+            }
+            debugger;
+            var empObj =
+            {
+                testGuid: test, //testGuid: $('#testGuid').val(),
+                Instance: $('#Instance').val(),
+                Hint: $('#Hint').val(),
+                Guid: $('#questionGuid').val()
+            };
+            alert(JSON.stringify(empObj));
+            alert("322");
+
+            $.ajax({
+                url: "/Apilike/CreateQuestion",
+                data: JSON.stringify(empObj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    alert(JSON.stringify(empObj));
+                    loadData();
+                    $('#myModalNewQuestion').modal('hide');
+                },
+                error: function(errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+        // має прийматись testGuid і відповідно на нього записуватись питання.
+        function AddNewUrl(guid) {
+            //var res = validateUrl();
+            //if (res == false) {
+            //    return false;
+            //}
+            debugger;
+            var empObj =
+            {
+                UrlInstance: $('#UrlInstance').val(),   // Отут треба задати форму для відкриття та інформації про тест-> і там вже буде натиснути СТАРТ
+
+                Guid: $('#Guid').val(),
+
+                TestGuid: guid,                 // пробую guid вручну! АЛЕ хочу, щоб автоматично
+                TestName: $('#TestName').val(),
+
+                Interviewee: $('#Interviewee').val(),
+                NumberOfRuns: $('#NumberOfRuns').val(),
+                AllowedStartDate: $('#AllowedStartDate').val(),
+                AllowedEndDate: $('#AllowedEndDate').val(),
+
+                IsValid: $('#IsValid').val()
+            };
+            alert(JSON.stringify(empObj));
+
+            $.ajax({
+                url: "/Apilike/CreateTestingUrl",
+                data: JSON.stringify(empObj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    alert("SUCCESS");
+                    loadData();
+                    $('#myModalNewUrl').modal('hide');
+                },
+                error: function(errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+        // має прийматись testQuestion і відповідно на нього записуватись питання.
+        function AddNewAnswer(test) {
+            //var res = validateQuestion();
+            //if (res == false) {
+            //    return false;
+            //}
+            debugger;
+            var empObj =
+            {
+                questionGuid: test, //testGuid: $('#testGuid').val(),
+                Instance: $('#Instance').val(),
+                IsCorrect: $('#IsCorrect').val(),
+                Guid: $('#answerGuid').val()
+            };
+            alert(JSON.stringify(empObj));
+            alert("322");
+
+            $.ajax({
+                url: "/Apilike/CreateAnswer",
+                data: JSON.stringify(empObj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    alert(JSON.stringify(empObj));
+                    loadData();
+                    $('#myModalNewQuestion').modal('hide');
+                },
+                error: function(errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+        // ОЦЕ НЕ ЗРОБЛЕНО
+
+        //function for updating employee's record
+        // Тут мб 2 параметри треба ще хз
+        function Update(guid) {
+            var res = validateTest();
+            if (res == false) {
+                return false;
+            }
+            var empObj = {
+                Name: $('#Name').val(),
+                Description: $('#Description').val(),
+                TestTimeLimit: $('#TestTimeLimit').val(),
+                QuestionTimeLimit: $('#QuestionTimeLimit').val(),
+
+                Guid: $('#Guid').val()
+            };
+            $.ajax({
+                url: "/Apilike/UpdateTest",
+                data: JSON.stringify(empObj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function(result) {
+                    loadData();
+                    $('#myModal').modal('hide');
+                    $('#Guid').val("");
+                    $('#Name').val("");
+                    $('#Description').val("");
+                    $('#TestTimeLimit').val("");
+                    $('#QuestionTimeLimit').val("");
+                },
+                error: function(errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+
+        // ГАЙД ТРЕБА ПЕРЕДАТИ СЮДИ::::::::::::::::::::::
+        function DeleteTest(guid) {
+            var ans = confirm("Are you sure you want to delete this Record?");
+            if (ans) {
+                var delObj =
+                {
+                    testGuid: guid
+                };
+
+                $.ajax({
+                    data: JSON.stringify(delObj),
+                    url: "/Apilike/RemoveTest",
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "text",
+
+                    success: function(result) {
+
+                        alert("Успешно!");
+                        loadData();
+                    },
+                    error: function(errormessage) {
+                        alert("ERROR!!!");
+                    }
+                });
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        //Function for clearing the textboxes (TEST)
+        function clearTextBoxTest() {
+            $('#Guid').val("");
+            $('#Name').val("");
+            $('#Description').val("");
+            $('#TestTimeLimit').val("");
+            $('#QuestionTimeLimit').val("");
+
+            $('#btnUpdateTest').hide();
+            $('#btnAddNewTest').show();
+            $('#Name').css('border-color', 'lightgrey');
+            $('#Description').css('border-color', 'lightgrey');
+            $('#TestTimeLimit').css('border-color', 'lightgrey');
+            $('#QuestionTimeLimit').css('border-color', 'lightgrey');
+        }
+
+        //Valdidation using jquery (TEST)
+        function validateTest() {
+            var isValid = true;
+            if ($('#Name').val().trim() == "") {
+                $('#Name').css('border-color', 'Red');
+                isValid = false;
+            } else {
+                $('#Name').css('border-color', 'lightgrey');
+            }
+            if ($('#Description').val().trim() == "") {
+                $('#Description').css('border-color', 'Red');
+                isValid = false;
+            } else {
+                $('#Description').css('border-color', 'lightgrey');
+            }
+            if ($('#TestTimeLimit').val().trim() == "") {
+                $('#TestTimeLimit').css('border-color', 'Red');
+                isValid = false;
+            } else {
+                $('#TestTimeLimit').css('border-color', 'lightgrey');
+            }
+            if ($('#QuestionTimeLimit').val().trim() == "") {
+                $('#QuestionTimeLimit').css('border-color', 'Red');
+                isValid = false;
+            } else {
+                $('#QuestionTimeLimit').css('border-color', 'lightgrey');
+            }
+            return isValid;
+        }
+
+        //Function for clearing the textboxes (QUESTION)
+        function clearTextBoxQuestion() {
+            $('#Guid').val("");
+            $('#Instance').val("");
+            $('#Hint').val("");
+
+            $('#btnUpdateQuestion').hide();
+            $('#btnAddNewQuestion').show();
+            $('#Instance').css('border-color', 'lightgrey');
+            $('#Hint').css('border-color', 'lightgrey');
+        }
+
+        //Valdidation using jquery (QUESTION)
+        function validateQuestion() {
+            var isValid = true;
+            if ($('#Instance').val().trim() == "") {
+                $('#Instance').css('border-color', 'Red');
+                isValid = false;
+            } else {
+                $('#Instance').css('border-color', 'lightgrey');
+            }
+            if ($('#Hint').val().trim() == "") {
+                $('#Hint').css('border-color', 'Red');
+                isValid = false;
+            } else {
+                $('#Hint').css('border-color', 'lightgrey');
+            }
+            return isValid;
+        }
+
+        //Function for clearing the textboxes (ANSWER)
+        function clearTextBoxAnswer() {
+            $('#Guid').val("");
+            $('#Instance').val("");
+            $('#IsCorrect').val("");
+
+            $('#btnUpdateAnswer').hide();
+            $('#btnAddNewAnswer').show();
+            $('#Instance').css('border-color', 'lightgrey');
+            $('#IsCorrect').css('border-color', 'lightgrey');
+        }
+
+        //Valdidation using jquery (ANSWER)
+        function validateAnswer() {
+            var isValid = true;
+            if ($('#Instance').val().trim() == "") {
+                $('#Instance').css('border-color', 'Red');
+                isValid = false;
+            } else {
+                $('#Instance').css('border-color', 'lightgrey');
+            }
+            if ($('#IsCorrect').val().trim() == "") {
+                $('#IsCorrect').css('border-color', 'Red');
+                isValid = false;
+            } else {
+                $('#IsCorrect').css('border-color', 'lightgrey');
+            }
+            return isValid;
+        }
+
+
+
+
+        // NEW MODAL -- WORKED!
+
+        var arrQuestion;
+        //Load Data function
+        function GetQuestionsByTestGuid(guid) {
+            var getObj =
+            {
+                testGuid: guid
+            };
+
+            $.ajax({
+                data: getObj,
+                url: "/Apilike/GetQuestionsByTestGuid",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function(data) {
+                    debugger;
+                    console.log("Response:", data);
+                    if (data)
+                    {
+                        var html = '';
+                        $.each(data,
+                            function(key, items) {
+                                html += '<tr class="allRowsQuestion" onclick="FunctionForRowQuestion()">';
+                                html += '<td>' + items.Instance + '</td>';
+                                html += '<td>' + items.Hint + '</td>';
+                                html += '<td  class = "questioningGuid">' + items.Guid + '</td>';
+                                html +=
+                                    `<td><a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myAnswers" onclick="return GetAnswersByQuestionGuid('${items.Guid}')">Answers</a></td>` +
+                                    `<td><a href="#" onclick="return GetTestByguid('${items.Guid}')">Edit</a></td>` +
+                                    `<td><a href="#" onclick="return DeleteQuestion('${items.Guid}')">Delete</a></td>`;
+                                html += '</tr>';
+                            });
+                        $('.tbodyQuestions').html(html);
+                    }
+                },
+                error: function(error) {
+                    debugger;
+                    alert("Error:" + error);
+                }
+            });
+        }
+
+        var rowIdQuestion;
+        arrQuestion = document.getElementsByClassName('questioningGuid');
+        // ! є баг якщо не натиснути на tr!
+        function FunctionForRowQuestion()
+        {
+            //debugger;
+            var tr = document.getElementsByClassName('allRowsQuestion');
+
+            for (let i = 0; i < tr.length; i++)
+            {
+                tr[i].addEventListener('click', function (e) {
+                    rowIdQuestion = i;
+                    console.log(rowIdQuestion);
+                    i = 0;
+                });
+            }
+        }
+
+
+
+        // NEW MODAL(Answers)!
+
+        function GetAnswersByQuestionGuid(guid) {
+            var getAnswers =
+            {
+                questionGuid: guid
+            };
+
+            $.ajax({
+                data: getAnswers,
+                url: "/Apilike/GetAnswersByQuestionGuid",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function(data) {
+                    debugger;
+                    console.log("Response:", data);
+                    if (data)
+                    {
+                        var html = '';
+                        $.each(data,
+                            function(key, items) {
+                                html += '<tr>';
+                                html += '<td>' + items.Instance + '</td>';
+                                html += '<td>' + items.IsCorrect + '</td>';
+                                html += '<td>' + items.Guid + '</td>';
+                                html += `<td><a href="#" onclick="return DeleteAnswer('${items.Guid}')">Delete</a></td>`;
+                                html += '</tr>';
+                            });
+                        $('.tbodyAnswers').html(html);
+                    }
+                },
+                error: function(error) {
+                    debugger;
+                    alert("Error:" + error);
+                }
+            });
+        }
+    </script>
 }
-
-</table>
