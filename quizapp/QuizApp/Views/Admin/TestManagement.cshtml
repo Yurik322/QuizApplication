@@ -475,7 +475,7 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    alert(JSON.stringify(empObj));
+                    //alert(JSON.stringify(empObj));
                     loadData();
                     $('#myModalNewQuestion').modal('hide');
                 },
@@ -779,7 +779,7 @@
                     {
                         var html = '';
                         $.each(data,
-                            function(key, items) {
+                            function (key, items) {
                                 html += '<tr class="allRowsQuestion" onclick="FunctionForRowQuestion()">';
                                 html += '<td>' + items.Instance + '</td>';
                                 html += '<td>' + items.Hint + '</td>';
@@ -823,6 +823,8 @@
         // NEW MODAL(Answers)!
 
         function GetAnswersByQuestionGuid(guid) {
+            //debugger;
+
             var getAnswers =
             {
                 questionGuid: guid

@@ -74,7 +74,7 @@
                     $.each(result,
                         function(key, item) {
                             html += '<tr>';
-                            html += `<td><a href="/Test/${item.Guid}" onclick="return MyFunc()">http://Test/${item.Guid}</a></td>`;
+                            html += `<td><a href="/Test/${item.Guid}" onclick="return ReferenceGuid('${item.Guid}')">http://Test/${item.Guid}</a></td>`;
                             html += '<td>' + item.Guid + '</td>';
                             html += '<td>' + item.TestGuid + '</td>';
                             html += '<td>' + item.TestName + '</td>';
@@ -122,5 +122,6 @@
                 });
             }
         }
+
     </script>
 }

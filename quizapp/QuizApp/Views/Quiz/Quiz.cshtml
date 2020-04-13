@@ -7,6 +7,8 @@
 
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
     <script src="/Scripts/jquery-1.10.2.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     @*<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-debug.js"></script>*@
@@ -15,9 +17,22 @@
 
     <h2>Quiz</h2>
 
+    <div class="container">
+
+        <form class="quiz">
+            @*// class="quiz"*@
+
+            
+
+            
+
+        </form>
+
+    </div>
+
     @using (Html.BeginForm())
     {
-        @Html.AntiForgeryToken() // мб оце попробую закоментувати.
+        @*@Html.AntiForgeryToken()*@ // мб оце попробую закоментувати.
 
         <div class="form-horizontal">
 
@@ -83,37 +98,21 @@
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
 
+                    @*<input href="#" type="submit" value="Start TEST" class="btn btn-default" onclick="return StartTest();" />*@
 
-                    <script>
-
-                        //var us = document.getElementById("test").innerHTML;
-
-                        //alert(us.value);
-
-                        var myTest =
-                        {
-                            // приходить пустий об"єкт
-                            Guid: $('#test').val()
-                        }
-                        ////ERROR:
-                        //alert(JSON.stringify(myTest));
-
-                    </script>
-
-                    <input type="submit" value="Start TEST" class="btn btn-default" onclick="alert(JSON.stringify(myTest)); Guid = myTest; return GetInfoAndStartTest(Guid);" />
+                    @*<input href="#" type="submit" value="Start TEST" id="buttonUpload" class="btn btn-default"/>*@
+                    @*href="#"*@
+                    <a id="buttonUpload" class="btn btn-info btn-lg">Start TEST</a>
 
                 </div>
             </div>
         </div>
     }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 
-
-
-<div class="quiz"></div>
 </body>
 </html>
 
@@ -121,92 +120,115 @@
 @section scripts
 {
     <script type="text/javascript">
-        //Load Data in Table when documents is ready
-        //$(document).ready(function () {
-        //    loadData();
+
+        $(document).ready(function() {
+            $("#buttonUpload").click(function() {
+                var getGuid =
+                {
+                    testingUrlGuid: $('#test').val()
+                };
+
+                $.ajax({
+                    data: getGuid,
+                    url: "/Quiz/GetInfoAndStartTest",
+                    type: "GET",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+
+                    
+                    success: function(results) { // вешаем свой обработчик на функцию success
+                        debugger;
+
+
+
+                        for (var i = 0; i < results.Questions.length; i++)
+                        {
+                            
+                           
+                            $('.quiz').append($("</br></br></br>")).append($("<div></div>").text(results.Questions[i].Instance)).append($("<div></div>").text(results.Questions[i].Hint)).append($("</br>"))
+                                .append($().text(results.Questions[i].Answers)).append($("</br>"));
+
+
+                            for (var j = 0; j < results.Questions[i].Answers.length; j++) {
+
+                                //<label class="radiocontainer"></label>
+
+                                // в чекбоксі треба функцію, яка покліку буде робити тру:
+                                $('.quiz').append($("<input type='checkbox'>").text(results.Questions[i].Answers[j].IsSelected));
+
+                                $('.quiz').append($("<span></span>").text(results.Questions[i].Answers[j].Instance)).append($("</br>"));
+
+                                //$('.quiz').append($("<div></div>").text(results.Questions[i].Answers[j].Instance)).append($("</br>"));
+                            }
+
+
+                            $('.quiz').append($("<hr/>"));
+                            // ТУТ ЩЕ КНОПКА FINISH TEST
+                        }
+                    }
+                });
+            });
+        });
+
+
+        //var posts = JSON.stringify(results);
+        //console.log(results);
+
+        //var html = '';
+        //$.each(posts, function (key, item) {
+
+                            
+        //        html += '<tr>';
+        //        html += '<td>' + item.Instance + '</td>';
+        //        html += '<td>' + item.QuestionsTimeLimit + '</td>';
+        //        html += '<td>' + item.Questions + '</td>';
+        //        html += '<td>' + item.AttemptGuid + '</td>';
+
+        //        //html +=
+        //        //    `<td><a href="#" onclick="return DeleteQuestion('${item.Guid}')">Delete</a></td>`;
+        //        html += '</tr>';
+
+        //});
+        //$('.quiz').html(html);
+
+        //$(document).ready(function() {
+        //    $("#buttonUpload").click(function() {
+        //        var getGuid =
+        //        {
+        //            testingUrlGuid: $('#test').val()
+        //        };
+
+        //        $.ajax({
+        //            data: getGuid,
+        //            url: "/Quiz/GetInfoAndStartTest",
+        //            type: "GET",
+        //            contentType: "application/json;charset=utf-8",
+        //            dataType: "json",
+
+        //            //cache: true,
+        //            success: function(data) { // вешаем свой обработчик на функцию success
+        //                debugger;
+        //                var response = JSON.stringify(data);
+        //                console.log("Response:", response);
+
+        //                if (response)
+        //                {
+        //                    var html = '';
+        //                    $.each(response,
+        //                        function(key, items) {
+        //                            html += '<tr>';
+        //                            html += '<td>' + items.AttemptGuid + '</td>';
+
+        //                            //html +=
+        //                            //    `<td><a href="#" onclick="return DeleteQuestion('${items.Guid}')">Delete</a></td>`;
+        //                            html += '</tr>';
+        //                        });
+        //                    $('.quiz').html(html);
+        //                }
+        //            }
+        //        });
+        //    });
         //});
 
-        ////Load Data function
-        //function loadData() {
-        //    $.ajax({
-        //        url: "/Quiz/GetInfoAndStartTest",
-        //        type: "GET",
-        //        contentType: "application/json;charset=utf-8",
-        //        dataType: "json",
-        //        success: function (result) {
-        //            var html = '';
-        //            $.each(result,
-        //                function (key, item) {
-        //                    html += '<tr>';
-        //                    html += '<td>' + item.Instance + '</td>';
-        //                    html += '<td>' + item.Hint + '</td>';
-        //                    html += '<td>' + item.Answers + '</td>';
-        //                    html += '<td>' + item.Guid + '</td>';
-
-        //                    html +=
-        //                        `<td><a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myUrls" onclick="return RemoveTestingUrl('${item.Guid}')">Delete URL</a></td>`;
-        //                    html += '</tr>';
-        //                });
-        //            $('.tbody').html(html);
-        //        },
-        //        error: function (errormessage) {
-        //            alert("ERROR");
-        //        }
-        //    });
-        //}
-
-        //debugger;
-        //var myTest =
-        //{
-        //    Guid: $('#test').val()
-        //}
-        ////ERROR:
-        //alert(JSON.stringify(myTest));
-
-
-
-
-
-
-
-        //Load Data function
-        function GetInfoAndStartTest(guid) {
-            var getObj =
-            {
-                testingUrlGuid: guid
-            };
-
-            $.ajax({
-                data: getObj,
-                url: "/Quiz/GetInfoAndStartTest",
-                type: "GET",
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    debugger;
-                    console.log("Response:", data);
-                    if (data) {
-                        var html = '';
-                        $.each(data,
-                            function (key, items) {
-                                html += '<tr class="allRowsQuestion" onclick="FunctionForRowQuestion()">';
-                                html += '<td>' + items.Instance + '</td>';
-                                html += '<td>' + items.Hint + '</td>';
-                                html += '<td  class = "questioningGuid">' + items.Guid + '</td>';
-                                html +=
-                                    `<td><a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myAnswers" onclick="return GetAnswersByQuestionGuid('${items.Guid}')">Answers</a></td>` +
-                                    `<td><a href="#" onclick="return GetTestByguid('${items.Guid}')">Edit</a></td>` +
-                                    `<td><a href="#" onclick="return DeleteQuestion('${items.Guid}')">Delete</a></td>`;
-                                html += '</tr>';
-                            });
-                        $('.quiz').html(html);
-                    }
-                },
-                error: function (error) {
-                    debugger;
-                    alert("Error:" + error);
-                }
-            });
-        }
     </script>
 }
