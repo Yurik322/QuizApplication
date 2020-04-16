@@ -47,7 +47,7 @@ namespace QuizApp.Controllers
 
         // ToDo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:
         [HttpGet]
-        public JsonResult GetInfoAndStartTest(string testingUrlGuid)    // = "5a376ffa-3eda-4ea0-b65a-33e14ecfa97c"
+        public JsonResult GetInfoAndStartTest(string testingUrlGuid)
         {
             // Error!!!
             var domainTest = _getInfoService.GetTestByTestingUrlGuid(testingUrlGuid);

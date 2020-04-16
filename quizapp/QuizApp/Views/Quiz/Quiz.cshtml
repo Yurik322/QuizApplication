@@ -17,96 +17,101 @@
 
     <h2>Quiz</h2>
 
-    <div class="container">
-
-        <form class="quiz">
-            @*// class="quiz"*@
-
-            
-
-            
-
-        </form>
-
-    </div>
+    
 
     @using (Html.BeginForm())
     {
         @*@Html.AntiForgeryToken()*@ // мб оце попробую закоментувати.
 
-        <div class="form-horizontal">
+<div class="form-horizontal">
 
-            <h4>TestingUrlViewModel</h4>
-            <hr />
+    <h4>TestingUrlViewModel</h4>
+    <hr />
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Guid, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Guid, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled", @Id = "test" } })
-                    @Html.ValidationMessageFor(model => model.Guid, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.TestGuid, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TestGuid, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
-                    @Html.ValidationMessageFor(model => model.TestGuid, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.TestName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TestName, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
-                    @Html.ValidationMessageFor(model => model.TestName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Interviewee, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Interviewee, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Interviewee, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.NumberOfRuns, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NumberOfRuns, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
-                    @Html.ValidationMessageFor(model => model.NumberOfRuns, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.AllowedStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.AllowedStartDate, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
-                    @Html.ValidationMessageFor(model => model.AllowedStartDate, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.AllowedEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.AllowedEndDate, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
-                    @Html.ValidationMessageFor(model => model.AllowedEndDate, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-
-                    @*<input href="#" type="submit" value="Start TEST" class="btn btn-default" onclick="return StartTest();" />*@
-
-                    @*<input href="#" type="submit" value="Start TEST" id="buttonUpload" class="btn btn-default"/>*@
-                    @*href="#"*@
-                    <a id="buttonUpload" class="btn btn-info btn-lg">Start TEST</a>
-
-                </div>
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Guid, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Guid, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled", @Id = "test" } })
+            @Html.ValidationMessageFor(model => model.Guid, "", new { @class = "text-danger" })
         </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TestGuid, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TestGuid, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled", @Id = "TestingGuid" } })
+            @Html.ValidationMessageFor(model => model.TestGuid, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TestName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TestName, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.TestName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Interviewee, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Interviewee, new { htmlAttributes = new { @class = "form-control", @Id = "Interviewee" } })
+            @Html.ValidationMessageFor(model => model.Interviewee, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NumberOfRuns, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NumberOfRuns, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.NumberOfRuns, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.AllowedStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AllowedStartDate, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled", @Id = "test" } })
+            @Html.ValidationMessageFor(model => model.AllowedStartDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.AllowedEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AllowedEndDate, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled", @Id = "test" } })
+            @Html.ValidationMessageFor(model => model.AllowedEndDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="quiz">
+
+
+    </div>
+
+    <div class="att">
+
+
+
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+
+            @*<input href="#" type="submit" value="Start TEST" class="btn btn-default" onclick="return StartTest();" />*@
+
+            @*<input href="#" type="submit" value="Start TEST" id="buttonUpload" class="btn btn-default"/>*@
+            @*href="#"*@
+            <a id="buttonUpload" class="btn btn-info btn-lg">Start TEST</a>
+
+        </div>
+    </div>
+    
+</div>
     }
 
     <div>
@@ -134,19 +139,16 @@
                     type: "GET",
                     contentType: "application/json;charset=utf-8",
                     dataType: "json",
-
-                    
                     success: function(results) { // вешаем свой обработчик на функцию success
                         debugger;
-
-
 
                         for (var i = 0; i < results.Questions.length; i++)
                         {
                             
                            
-                            $('.quiz').append($("</br></br></br>")).append($("<div></div>").text(results.Questions[i].Instance)).append($("<div></div>").text(results.Questions[i].Hint)).append($("</br>"))
+                            $('.quiz').append($("</br></br></br>")).append($("<p id='instance'></p>").text(results.Questions[i].Instance)).append($("<p id='hint'></p>").text(results.Questions[i].Hint)).append($("</br>"))
                                 .append($().text(results.Questions[i].Answers)).append($("</br>"));
+
 
 
                             for (var j = 0; j < results.Questions[i].Answers.length; j++) {
@@ -154,81 +156,97 @@
                                 //<label class="radiocontainer"></label>
 
                                 // в чекбоксі треба функцію, яка покліку буде робити тру:
+
+                                $('.quiz').append($("<label class='radiocontainer'>"));
+
+
                                 $('.quiz').append($("<input type='checkbox'>").text(results.Questions[i].Answers[j].IsSelected));
 
-                                $('.quiz').append($("<span></span>").text(results.Questions[i].Answers[j].Instance)).append($("</br>"));
+                                $('.quiz').append($("<span class='checkmark'></span>").text(results.Questions[i].Answers[j].Instance)).append($("</br>"));
+
+
+                                $('.quiz').append($("</label>"));
+
 
                                 //$('.quiz').append($("<div></div>").text(results.Questions[i].Answers[j].Instance)).append($("</br>"));
                             }
 
 
                             $('.quiz').append($("<hr/>"));
-                            // ТУТ ЩЕ КНОПКА FINISH TEST
+
+
+
+                            // ЗАРАЗ ОЦЕ РОБЛЮ!
+                            $('.att').append($(`<input id='Questions' class='form-control text-box single-line' name='Questions' type='text' value='${JSON.stringify(results.Questions[i])}'>`).text(results.Questions[i]));
                         }
+
+
+                        //$('.quiz').append($("<div id='TestTimeLimit'></div>").text(results.TestTimeLimit));
+                        //$('.quiz').append($("<div id='QuestionTimeLimit'></div>").text(results.QuestionTimeLimit));
+
+
+
+
+
+                        $('.att').append($(`<input id='TestTimeLimit' class='form-control text-box single-line' name='TestTimeLimit' type='text' value='${JSON.stringify(results.TestTimeLimit)}'>`).text(results.TestTimeLimit));
+
+                        $('.att').append($(`<input id='QuestionTimeLimit' class='form-control text-box single-line' name='QuestionTimeLimit' type='text' value='${JSON.stringify(results.QuestionTimeLimit)}'>`).text(results.QuestionTimeLimit));
+
+                        $('.att').append($(`<input id='AttemptGuid' class='form-control text-box single-line' name='AttemptGuid' type='text' value='${results.AttemptGuid}'>`).text(results.AttemptGuid));
+                       
+
+                        //FINISH
+                        $('.quiz').append($("<button type='button' class='btn btn-primary' id='finishTest' onclick=' return AddFinish(); '>Finish TEST</button>"));
+
+
+                        //  onclick='alert(JSON.stringify(results.AttemptGuid.innerText)); guid=results.AttemptGuid.innerText; return AddFinish(guid);'
                     }
                 });
             });
         });
 
 
-        //var posts = JSON.stringify(results);
-        //console.log(results);
 
-        //var html = '';
-        //$.each(posts, function (key, item) {
 
-                            
-        //        html += '<tr>';
-        //        html += '<td>' + item.Instance + '</td>';
-        //        html += '<td>' + item.QuestionsTimeLimit + '</td>';
-        //        html += '<td>' + item.Questions + '</td>';
-        //        html += '<td>' + item.AttemptGuid + '</td>';
+        //!!!Add Data Function
+        function AddFinish() {
+            debugger;
+            var empObj =
+            {
+                Guid: $('#test').val(),//++
+                TestingGuid: $('#TestingGuid').val(),//++
+                Interviewee: $('#Interviewee').val(),//++
 
-        //        //html +=
-        //        //    `<td><a href="#" onclick="return DeleteQuestion('${item.Guid}')">Delete</a></td>`;
-        //        html += '</tr>';
+                //TestingStartDateTime: $('#TestingStartDateTime').val(),
+                //TestingEndDateTime: $('#TestingEndDateTime').val(),
+                Duration: $('#Duration').val(),
+                //QuestionTried: $('#QuestionTried').val(),
+                //Score: $('#Score').val(),
 
-        //});
-        //$('.quiz').html(html);
+                AttemptGuid: $('#AttemptGuid').val(),//++
 
-        //$(document).ready(function() {
-        //    $("#buttonUpload").click(function() {
-        //        var getGuid =
-        //        {
-        //            testingUrlGuid: $('#test').val()
-        //        };
+                Questions: $('#Questions').val()//++
+            };
+            alert(JSON.stringify(empObj));
+            alert("322");
 
-        //        $.ajax({
-        //            data: getGuid,
-        //            url: "/Quiz/GetInfoAndStartTest",
-        //            type: "GET",
-        //            contentType: "application/json;charset=utf-8",
-        //            dataType: "json",
+            $.ajax({
+                url: "/Quiz/FinishTest",
+                data: JSON.stringify(empObj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
 
-        //            //cache: true,
-        //            success: function(data) { // вешаем свой обработчик на функцию success
-        //                debugger;
-        //                var response = JSON.stringify(data);
-        //                console.log("Response:", response);
+                success: function(result) {
+//
 
-        //                if (response)
-        //                {
-        //                    var html = '';
-        //                    $.each(response,
-        //                        function(key, items) {
-        //                            html += '<tr>';
-        //                            html += '<td>' + items.AttemptGuid + '</td>';
 
-        //                            //html +=
-        //                            //    `<td><a href="#" onclick="return DeleteQuestion('${items.Guid}')">Delete</a></td>`;
-        //                            html += '</tr>';
-        //                        });
-        //                    $('.quiz').html(html);
-        //                }
-        //            }
-        //        });
-        //    });
-        //});
+                },
+                error: function(errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
 
     </script>
 }

@@ -36,6 +36,7 @@ namespace QuizApp.ViewModel.Mapping
             _mapper = mapper;
         }
 
+        //TODO
         public TestingResult MapTestPassingViewModel(TestPassingViewModel testPassingViewModel)
         {
             var result = _mapper.Map<TestingResult>(testPassingViewModel);
