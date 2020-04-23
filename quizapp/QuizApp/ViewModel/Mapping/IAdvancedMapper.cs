@@ -36,7 +36,6 @@ namespace QuizApp.ViewModel.Mapping
             _mapper = mapper;
         }
 
-        //TODO
         public TestingResult MapTestPassingViewModel(TestPassingViewModel testPassingViewModel)
         {
             var result = _mapper.Map<TestingResult>(testPassingViewModel);
@@ -102,10 +101,12 @@ namespace QuizApp.ViewModel.Mapping
             return testingUrlViewModel;
         }
 
+        //TODO:
         private List<TestingResultAnswer> MapTestingResultAnswers(IEnumerable<ChoicePassingViewModel> questions, TestingResult result)
         {
             return questions.Select(questionFromTestAnswer =>
             {
+                //?????????????????????????????????????????????????????????????????????????????????????????
                 var parsedQuestion = _getInfoService.GetQuestionByGuid(questionFromTestAnswer.QuestionGuid);
                 var answersSelected = string.Join(",", questionFromTestAnswer.AnswersSelected);
 

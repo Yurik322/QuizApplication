@@ -38,14 +38,10 @@ namespace QuizApp.Controllers
                 return View("TestingErrorView", (object)error);
             }
             //if all is ok
-
-            // ПЕРЕДАЄТЬСЯ ПОСИЛАННЯ НА ТЕСТ:
             var testUrl = _advancedMapper.MapTestingUrl(testUrlDomain);
             return View(testUrl);
         }
 
-
-        // ToDo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:
         [HttpGet]
         public JsonResult GetInfoAndStartTest(string testingUrlGuid)
         {
@@ -72,7 +68,6 @@ namespace QuizApp.Controllers
             return Json(test, JsonRequestBehavior.AllowGet);
         }
 
-//        http://localhost:53029/Quiz/FinishTest
         [HttpPost]
         public void FinishTest(TestPassingViewModel testPassing)
         {

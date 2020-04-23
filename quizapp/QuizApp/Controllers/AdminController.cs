@@ -20,9 +20,6 @@ namespace QuizApp.Controllers
     [Authorize]
     public class AdminController : Controller
     {
-        //ToDo: МБ можна уникнути оцього, але тоді треба поміняти оті кріейти
-        TestingContext db = new TestingContext();   // Connect to DB.
-
         private readonly IGetInfoService _getInfoService;
         private readonly IAdvancedMapper _advancedMapper;
         private readonly IAdvancedLogicService _advancedLogicService;

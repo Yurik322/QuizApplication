@@ -98,13 +98,6 @@ namespace QuizApp.Controllers
             var testFromDomain = _advancedMapper.MapTestViewModel(test);
             _highLevelTestManagementService.CreateTest(testFromDomain);
         }
-        ////ToDo?????????????????????????????????????????????????????????????????????????????????????????????
-        //// Мб заберу:
-        //public Test GetTestByGuid(string testGuid)  // ne працює(це моя функція, її мб можна забрати)
-        //{
-        //    // ERROR!!!!!!!!!!!! (testGuid = null -- не можу обробити стрічку з javascript-ajax)
-        //    return _testRepository.Get(test => test.Guid == testGuid);
-        //}
         [HttpPost]
         public void UpdateTest(string testGuid, TestViewModel test)
         {
@@ -119,7 +112,7 @@ namespace QuizApp.Controllers
 
 
         [HttpPost]
-        public void CreateTestingUrl(TestingUrlViewModel testingUrl)    //GUID????
+        public void CreateTestingUrl(TestingUrlViewModel testingUrl)
         {
             var testUrlDomain = _advancedMapper.MapTestingUrlViewModel(testingUrl);
             _highLevelTestManagementService.CreateTestingUrl(testUrlDomain);

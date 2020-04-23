@@ -60,7 +60,6 @@ namespace Services
         }
         public Test GetTestByTestingUrlGuid(string testingUrlGuid)
         {
-            // ToDo: ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             return _testingRepository.Get(t => t.Guid == testingUrlGuid).Test;
         }
 
@@ -69,6 +68,7 @@ namespace Services
             return _testingRepository.Get(t => t.Guid == testingUrlGuid);
         }
 
+        //TODO: попасти сюди!
         public TestQuestion GetQuestionByGuid(string questionGuid)
         {
             return _questionRepository.Get(q => q.Guid == questionGuid);

@@ -14,9 +14,8 @@ namespace QuizApp
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Test",       // http://localhost:53029/Test/{guid}
-
-                url: "Test/{guid}", //  http://localhost:53029/Quiz/GetInfoAndStartTest
+                name: "Test",
+                url: "Test/{guid}",
                 defaults: new {controller = "Quiz", action = "Quiz"});
 
             routes.MapRoute(
