@@ -17,7 +17,6 @@ namespace QuizApp.Controllers
     [Authorize]
     public class ApilikeController : Controller
     {
-        //private readonly IRepository<Test> _testRepository;
         private readonly IGetInfoService _getInfoService;
         private readonly ILowLevelTestManagementService _lowLevelTestManagementService;
         private readonly IHighLevelTestManagementService _highLevelTestManagementService;
@@ -25,13 +24,12 @@ namespace QuizApp.Controllers
         private readonly IMapper _mapper;
         private readonly IAdvancedMapper _advancedMapper;
 
-        public ApilikeController(/*IRepository<Test> testRepository,*/ 
+        public ApilikeController( 
             IGetInfoService getInfoService,
             ILowLevelTestManagementService lowLevelTestManagementService,
             IHighLevelTestManagementService highLevelTestManagementService, IMapper mapper,
             IAdvancedMapper advancedMapper)
         {
-            //_testRepository = testRepository;
             _getInfoService = getInfoService;
             _lowLevelTestManagementService = lowLevelTestManagementService;
             _highLevelTestManagementService = highLevelTestManagementService;
@@ -74,7 +72,7 @@ namespace QuizApp.Controllers
             return Json(questionViewModelList, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public void CreateQuestion(string testGuid, QuestionViewModel question)     /*  ="daabda81-6ffa-4ec4-a578-d8e04c74d478" */
+        public void CreateQuestion(string testGuid, QuestionViewModel question)
         {
             var testQuestion = _mapper.Map<TestQuestion>(question);
             _lowLevelTestManagementService.CreateQuestionForTest(testGuid, testQuestion);

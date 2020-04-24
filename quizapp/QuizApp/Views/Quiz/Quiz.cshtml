@@ -16,13 +16,13 @@
 
     <h2>Quiz</h2>
 
-<div class="quiz">
+    <div class="quiz">
 
-</div>
+    </div>
 
-<div class="att" id="myBackground">
+    <div class="att" id="myBackground">
 
-</div>
+    </div>
 
     @using (Html.BeginForm())
     {
@@ -31,61 +31,61 @@
             <h4>TestingUrlViewModel</h4>
             <hr />
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Guid, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Guid, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled", @Id = "test" } })
-                        @Html.ValidationMessageFor(model => model.Guid, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Guid, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Guid, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled", @Id = "test" } })
+                    @Html.ValidationMessageFor(model => model.Guid, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.TestGuid, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.TestGuid, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled", @Id = "TestingGuid" } })
-                        @Html.ValidationMessageFor(model => model.TestGuid, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TestGuid, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TestGuid, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled", @Id = "TestingGuid" } })
+                    @Html.ValidationMessageFor(model => model.TestGuid, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.TestName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.TestName, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.TestName, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TestName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TestName, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.TestName, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Interviewee, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Interviewee, new { htmlAttributes = new { @class = "form-control", @Id = "Interviewee" } })
-                        @Html.ValidationMessageFor(model => model.Interviewee, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Interviewee, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Interviewee, new { htmlAttributes = new { @class = "form-control", @Id = "Interviewee" } })
+                    @Html.ValidationMessageFor(model => model.Interviewee, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.NumberOfRuns, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.NumberOfRuns, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.NumberOfRuns, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.NumberOfRuns, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NumberOfRuns, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.NumberOfRuns, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.AllowedStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.AllowedStartDate, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.AllowedStartDate, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AllowedStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AllowedStartDate, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.AllowedStartDate, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.AllowedEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.AllowedEndDate, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
-                        @Html.ValidationMessageFor(model => model.AllowedEndDate, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AllowedEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AllowedEndDate, new { htmlAttributes = new { @class = "form-control", @Disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.AllowedEndDate, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
             <div class="form-group" id="myBack">
                 <div class="col-md-offset-2 col-md-10">
@@ -113,14 +113,14 @@
         function myFunction() {
             document.getElementById("myP").style.visibility = "hidden";
             document.getElementById("myBack").style.visibility = "hidden";
-            //document.getElementById("myBackground").style.visibility = "hidden";
+            document.getElementById("myBackground").style.visibility = "hidden";
         }
 
         var start = new Date();
         var startDate = start;
 
-        $(document).ready(function() {
-            $("#buttonUpload").click(function() {
+        $(document).ready(function () {
+            $("#buttonUpload").click(function () {
                 var getGuid =
                 {
                     testingUrlGuid: $('#test').val()
@@ -132,20 +132,19 @@
                     type: "GET",
                     contentType: "application/json;charset=utf-8",
                     dataType: "json",
-                    success: function(results) {
+                    success: function (results) {
                         debugger;
-                        
+
                         $('.att').append($(`<input id='TestTimeLimit' class='form-control text-box single-line' name='TestTimeLimit' type='text'  value='${JSON.stringify(results.TestTimeLimit)}')>`).text(results.TestTimeLimit));
                         $('.att').append($(`<input id='QuestionTimeLimit' class='form-control text-box single-line' name='QuestionTimeLimit' type='text'  value='${JSON.stringify(results.QuestionTimeLimit)}')>`).text(results.QuestionTimeLimit));
 
 
 
-                        for (var i = 0; i < results.Questions.length; i++)
-                        {
-                            
-                           
-                            $('.quiz').append($("</br></br></br>")).append($("<p id='instance'></p>").text(results.Questions[i].Instance)).append($("<p id='hint'></p>").text(results.Questions[i].Hint)).append($("</br>"))
-                                .append($().text(results.Questions[i].Answers)).append($("</br>"));
+                        for (var i = 0; i < results.Questions.length; i++) {
+
+
+                            $('.quiz').append($("</br></br></br>")).append($("<p id='instance'></p>").text(results.Questions[i].Instance)).append($("<p id='hint'></p>").text(results.Questions[i].Hint)).append($("</br></br>"));
+                            $('.att').append($(`<input id='questionGuid' class='form-control text-box single-line' name='questionGuid' type='text' value='${results.Questions[i].Guid}'>`).text(results.Questions[i].Guid));
 
 
 
@@ -153,12 +152,15 @@
 
                                 //<label class="radiocontainer"></label>
 
-                                // в чекбоксі треба функцію, яка покліку буде робити тру:
-
+                        
                                 $('.quiz').append($("<label class='radiocontainer'>"));
 
 
                                 $('.quiz').append($("<input type='checkbox'>").text(results.Questions[i].Answers[j].IsSelected));
+                                //TODO:
+                                $('.att').append($(`<input id='answerGuid' class='form-control text-box single-line' name='answerGuid' type='text' value='${results.Questions[i].Answers[j].Guid}'>`).text(results.Questions[i].Answers[j].Guid));
+
+
 
                                 $('.quiz').append($("<span class='checkmark'></span>").text(results.Questions[i].Answers[j].Instance)).append($("</br>"));
 
@@ -172,15 +174,12 @@
 
 
 
-                            // ЗАРАЗ ОЦЕ РОБЛЮ!
                             $('.att').append($(`<input id='Questions' class='form-control text-box single-line' name='Questions' type='text' value='${JSON.stringify(results.Questions[i])}'>`).text(results.Questions[i]));
                         }
 
 
 
-
                         $('.att').append($(`<input id='AttemptGuid' class='form-control text-box single-line' name='AttemptGuid' type='text' value='${results.AttemptGuid}'>`).text(results.AttemptGuid));
-                       
 
                         //FINISH
                         $('.quiz').append($("<button type='button' class='btn btn-primary' id='finishTest' onclick=' return AddFinish(); '>Finish TEST</button>"));
@@ -204,19 +203,20 @@
                 TestTimeLimit: $('#TestTimeLimit').val(),//++
                 QuestionTimeLimit: $('#QuestionTimeLimit').val(),//++
 
-                //треба якось  передати Date при натисканні на старт тест:
-                TestingStartDateTime: startDate,
-                // треба якось передати Date при натисканні на AddFinish:
-                TestingEndDateTime: endDate,
+                TestingStartDateTime: startDate,//++
+                TestingEndDateTime: endDate,//++
 
-                //QuestionTried: $('#QuestionTried').val(),
-                //Score: $('#Score').val(),
+                AttemptGuid: $('#AttemptGuid').val()//++
 
-                AttemptGuid: $('#AttemptGuid').val(),//++
+                // TODO:
+                //Questions: $('#Questions').val(),//++
 
-                Questions: $('#Questions').val()//++
+                // QuestionTried: $('#QuestionTried').val(),
+                // Score: $('#Score').val(),
+                //QuestionGuid: $('#questionGuid').val(),
+                //AnswersSelected: $('#answerSelected').val()
             };
-            alert(JSON.stringify(empObj));
+            //alert(JSON.stringify(empObj));
 
             $.ajax({
                 url: "/Quiz/FinishTest",
@@ -225,10 +225,10 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
 
-                success: function(result) {
+                success: function (result) {
 
                 },
-                error: function(errormessage) {
+                error: function (errormessage) {
                     alert(errormessage.responseText);
                 }
             });

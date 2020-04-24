@@ -40,13 +40,9 @@ namespace QuizApp.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            // Якось викликати        http://localhost:53029/Admin/GetAllTestingResults
-            // GetAllTestingResults();
-
             return View("ResultManagement");
         }
 
-        // ToDo:
         /// <summary>
         /// Button "|Tests|".
         /// </summary>
@@ -110,7 +106,6 @@ namespace QuizApp.Controllers
             return Json(allResults, JsonRequestBehavior.AllowGet);
         }
 
-        // Реалізовано - відразу скачує.
         public void GetResultsForTestCsv(string testGuid)
         {
             StringWriter oStringWriter = new StringWriter();
